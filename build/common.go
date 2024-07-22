@@ -130,10 +130,10 @@ func getBuildBackendCmdInfo(cfg Config) (Config, []string, error) {
 	}
 
 	ldFlags := ""
-	if !cfg.EnableCGo {
-		// Link statically
-		ldFlags = `-extldflags "-static"`
-	}
+	// if !cfg.EnableCGo {
+	// 	// Link statically
+	// 	ldFlags = `-extldflags "-static"`
+	// }
 
 	if !cfg.EnableDebug {
 		// Add linker flags to drop debug information
@@ -194,9 +194,8 @@ func getBuildBackendCmdInfo(cfg Config) (Config, []string, error) {
 
 	cfg.Env["GOARCH"] = cfg.Arch
 	cfg.Env["GOOS"] = cfg.OS
-	if !cfg.EnableCGo {
-		cfg.Env["CGO_ENABLED"] = "0"
-	}
+	cfg.Env["CGO_ENABLED"] = "1"
+
 	return cfg, args, nil
 }
 
